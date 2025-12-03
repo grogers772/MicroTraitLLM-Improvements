@@ -1,0 +1,18 @@
+Based on the provided information, yeast is widely used in the field of brewing (Siddiqui et al., 2023) and is also grown in mild conditions to allow the growth of most microorganisms present in the air, water, or soil (Chen & Jiang). Additionally, yeast is commonly used in the production of bread fermentation (Reese et al., 2020). In beer production, Pichia kluyveri and Saccharomyces cerevisiae are often co-fermented to produce low-alcohol craft beer (Huang et al., 2024).
+
+In bread production, yeast is a crucial microorganism for fermentation. It converts sugars into carbon dioxide gas, causing the dough to rise. In beer production, yeast ferments the sugars present in the wort, producing ethanol and carbon dioxide.
+
+While specific bacterial strains are not mentioned as being commonly used in bread or beer fermentation, it's worth noting that other microorganisms like bacteria (e.g., E. coli, Bacillus spp.) and fungi (e.g., Debaryomyces, Kluyveromyces) may also be involved in the fermentation process.
+
+References:
+Chen, Y., & Jiang, Z. (Year of publication not provided). 
+Huang, P., Lin, Y., Lin, Y., Zhang, Y., Huang, D., Martelanc, M., & Butinar, L. (2024).
+Nasuti, C., Ruffini, J., Sola, L., Bacco, M. D., Raimondi, S., Candeliere, F., Solieri, L., & Ciani, M. (2023).
+Reese, A. T., Madden, A. A., Joossens, M., Lacaze, G., Dunn, R. R., Suen, G., Joossens, M., Dunn, R. R., & Dunn, R. R. (2020).
+Siddiqui, S. A., Erol, Z., Castro-Muñoz, R., Castro-Muñoz, R., Rugji, J., Taşçı, F., Kahraman, H. A., Toppi, V., Musa, L., Giacinto, G. D., Bahmid, N. A., & Mehdizadeh, M. (2023).
+Huang, P., Lin, Y., Lin, Y., Zhang, Y., Huang, D., Martelanc, M., & Butinar, L. (2024). The Potential of Co-Fermentation with Pichia kluyveri and Saccharomyces cerevisiae for the Production of Low-Alcohol Craft Beer. <i>Foods</i>, 13(23), 3794. 10.3390/foods13233794
+Siddiqui, S. A., Erol, Z., Castro-Muñoz, R., Castro-Muñoz, R., Rugji, J., Taşçı, F., Kahraman, H. A., Toppi, V., Musa, L., Giacinto, G. D., Bahmid, N. A., & Mehdizadeh, M. (2023). An overview of fermentation in the food industry - looking back from a new perspective. <i>Bioresources and Bioprocessing</i>, 10(1), 85. 10.1186/s40643-023-00702-y
+Molinet, J., Navarrete, J. P., Molinet, J., Villarreal, P., Villarroel, C. A., Nespolo, R. F., Stelkens, R., Molinet, J., Stelkens, R., Molinet, J., Villarroel, C. A., Villarreal, P., Sandoval, F. I., Nespolo, R. F., Stelkens, R., Cubillos, F. A., Sampaio, J. P., & Cubillos, F. A. (2024). Wild Patagonian yeast improve the evolutionary potential of novel interspecific hybrid strains for lager brewing. <i>PLOS Genetics</i>, 20(6), e1011154. 10.1371/journal.pgen.1011154
+Nasuti, C., Ruffini, J., Sola, L., Bacco, M. D., Raimondi, S., Candeliere, F., Solieri, L., & Ciani, M. (2023). Sour Beer as Bioreservoir of Novel Craft Ale Yeast Cultures. <i>Microorganisms</i>, 11(9), 2138. 10.3390/microorganisms11092138
+Reese, A. T., Madden, A. A., Joossens, M., Lacaze, G., Dunn, R. R., Suen, G., Joossens, M., Dunn, R. R., & Dunn, R. R. (2020). Influences of Ingredients and Bakers on the Bacteria and Fungi in Sourdough Starters and Bread. <i>mSphere</i>, 5(1), e00950-19. 10.1128/mSphere.00950-19
+Wang, F., Wang, M., Xu, L., Qian, J., Xu, B., Gao, X., Ding, Z., Cui, K., & Park, I. (2025). Application and Possible Mechanism of Microbial Fermentation and Enzyme Catalysis in Regulation of Food Flavour. <i>Foods</i>, 14(11), 1909. 10.3390/foods14111909

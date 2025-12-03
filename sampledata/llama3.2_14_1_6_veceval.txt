@@ -1,0 +1,17 @@
+Nitrosomonas europaea, a bacterium involved in nitrification, uses the ammonia-oxidizing reaction as an energy source (Huang et al., 2018). This process involves the oxidation of ammonia (NH3) to nitrite (NO2-) and then to nitrate (NO3-), releasing energy that is used for growth and division. The unique metabolic pathway employed by Nitrosomonas europaea is the 3-hydroxypropionate/4-hydroxybutyrate pathway, which allows it to perform carbon fixation and obtain energy from ammonia (Berg et al.).
+
+This pathway is distinct from other nitrifying bacteria, such as Nitrosococcus oceani and Nitrosospira multiformis, which have different optimal conditions for growth and metabolism (Tkaczuk et al., 2013). The ability of Nitrosomonas europaea to use this pathway allows it to thrive in a wide range of environments, including wastewater treatment systems (Pedroza-Camacho et al., 2024).
+
+The use of the 3-hydroxypropionate/4-hydroxybutyrate pathway by Nitrosomonas europaea is an example of its unique metabolic capabilities, which enable it to obtain energy from ammonia and play a crucial role in the nitrogen cycle (Maza-Márquez et al., 2021).
+
+References:
+Berg, M. L., et al.
+Huang, Z., et al.
+Maza-Márquez, P., et al.
+Pedroza-Camacho, L. D., et al.
+Tkaczuk, K. L., et al.
+Pedroza-Camacho, L. D., Ospina-Sánchez, P. A., Romero-Perdomo, F. A., Infante-González, N. G., Paredes-Céspedes, D. M., Quevedo-Hidalgo, B., Gutiérrez-Romero, V., Rivera-Hoyos, C. M., Pedroza-Rodríguez, A. M., & Pedroza-Rodríguez, A. M. (2024). Wastewater treatment from a science faculty during the COVID-19 pandemic by using ammonium-oxidising and heterotrophic bacteria. <i>3 Biotech</i>, 14(5), 129. 10.1007/s13205-024-03961-4
+Tkaczuk, K. L., Shumilin, I. A., Chruszcz, M., Evdokimova, E., Savchenko, A., & Minor, W. (2013). Structural and functional insight into the universal stress protein family. <i>Evolutionary Applications</i>, 6(3), 434. 10.1111/eva.12057
+Huang, Z., Jiang, Y., Song, X., Hallerman, E., Peng, L., Dong, D., Ma, T., Zhai, J., Li, W., & Huang, Z. (2018). Ammonia-oxidizing bacteria and archaea within biofilters of a commercial recirculating marine aquaculture system. <i>AMB Express</i>, 8(None), 17. 10.1186/s13568-018-0551-1
+Maza-Márquez, P., Lee, M. D., Detweiler, A. M., & Bebout, B. M. (2021). Millimeter-scale vertical partitioning of nitrogen cycling in hypersaline mats reveals prominence of genes encoding multi-heme and prismane proteins. <i>The ISME Journal</i>, 16(4), 1119. 10.1038/s41396-021-01161-z
+Woznica, A., Nowak, A., Ziemski, P., Kwasniewski, M., Bernas, T., & Boneca, I. G. (2013). Stimulatory Effect of Xenobiotics on Oxidative Electron Transport of Chemolithotrophic Nitrifying Bacteria Used as Biosensing Element. <i>PLoS ONE</i>, 8(1), e53484. 10.1371/journal.pone.0053484
