@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MicroTraitLLM</title>
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-elevated: #020617;
+      --card: #020617;
+      --card-border: #1f2937;
+      --accent: #10b981;
+      --accent-soft: rgba(16, 185, 129, 0.12);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --danger: #f97373;
+      --font: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top left, #0f172a 0, #020617 45%, #020617 100%);
+      color: var(--text);
+      font-family: var(--font);
+    }
+
+    .app {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 20px 40px;
+    }
+
+    header {
+      margin-bottom: 28px;
+    }
+
+    header h1 {
+      font-size: 36px;
+      letter-spacing: 0.03em;
+      margin: 0 0 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    header h1 span.logo-emoji {
+      font-size: 26px;
+    }
+
+    header p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(280px, 1.1fr);
+      gap: 24px;
+    }
+
+    .card {
+      border-radius: 18px;
+      border: 1px solid var(--card-border);
+      background: linear-gradient(145deg, rgba(15,23,42,0.92), rgba(2,6,23,0.96));
+      padding: 18px 18px 16px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.55);
+    }
+
+    .card h2 {
+      margin: 0 0 6px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .card small {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .textarea-wrapper {
+      margin-top: 14px;
+      border-radius: 14px;
+      background: radial-gradient(circle at top left, rgba(15,118,110,0.15), transparent 60%);
+      border: 1px solid rgba(55,65,81,0.9);
+      padding: 8px 10px 10px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 180px;
+      resize: vertical;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    textarea::placeholder {
+      color: rgba(148,163,184,0.8);
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    button {
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.65);
+      background: transparent;
+      color: var(--text);
+      padding: 7px 16px;
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.12s ease, transform 0.08s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: default;
+      transform: none;
+      box-shadow: none;
+    }
+
+    button.btn-primary {
+      background: linear-gradient(135deg, #10b981, #22c55e);
+      border-color: transparent;
+      color: #022c22;
+      font-weight: 600;
+      box-shadow: 0 10px 26px rgba(16,185,129,0.35);
+    }
+
+    button.btn-primary:hover:not(:disabled) {
+      transform: translateY(-0.5px);
+      box-shadow: 0 14px 32px rgba(16,185,129,0.45);
+    }
+
+    button.btn-secondary {
+      background: rgba(15,23,42,0.9);
+    }
+
+    button.btn-secondary:hover:not(:disabled) {
+      background: rgba(31,41,55,0.95);
+    }
+
+    .settings-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.6);
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34,197,94,0.25);
+    }
+
+    .settings-group {
+      margin-top: 12px;
+      font-size: 13px;
+    }
+
+    .settings-group label {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    select,
+    input[type="number"],
+    input[type="text"] {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(55,65,81,0.9);
+      background: rgba(15,23,42,0.9);
+      color: var(--text);
+      padding: 6px 9px;
+      font-size: 13px;
+      outline: none;
+    }
+
+    select:focus,
+    input[type="number"]:focus,
+    input[type="text"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(16,185,129,0.55);
+    }
+
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    input[type="range"] {
+      flex: 1;
+    }
+
+    input[type="number"] {
+      width: 56px;
+      text-align: center;
+    }
+
+    .output {
+      margin-top: 14px;
+      padding: 10px 11px;
+      border-radius: 12px;
+      border: 1px solid rgba(55,65,81,0.9);
+      background: radial-gradient(circle at top left, rgba(16,185,129,0.08), rgba(15,23,42,0.95));
+      font-size: 13px;
+      white-space: pre-wrap;
+      max-height: 320px;
+      overflow-y: auto;
+    }
+
+    .output h3 {
+      margin: 6px 0 4px;
+      font-size: 13px;
+    }
+
+    .output p {
+      margin: 0 0 4px;
+    }
+
+    .status {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .status.error {
+      color: var(--danger);
+    }
+
+    .vqa-card {
+      margin-top: 18px;
+      border-style: dashed;
+      border-color: rgba(55,65,81,0.95);
+      background: radial-gradient(circle at top left, rgba(8,47,73,0.65), #020617 55%);
+    }
+
+    .vqa-card h2 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge-beta {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #6ee7b7;
+    }
+
+    .vqa-hint {
+      font-size: 12px;
+      color: var(--muted);
+      margin: 4px 0 10px;
+    }
+
+    .vqa-file-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .vqa-file-row input[type="file"] {
+      font-size: 12px;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>
+        MicroTraitLLM
+      </h1>
+      <p>Literature-grounded answers for microbial traits, with automatic taxonomy / protein / gene extraction.</p>
+    </header>
+
+    <main class="layout">
+      <!-- LEFT SIDE: Question + VQA -->
+      <section>
+        <!-- Main RAG question card -->
+        <div class="card">
+          <h2>Research question</h2>
+          <small>e.g. What microbial traits are associated with sulfate reduction in marine sediments?</small>
+
+          <div class="textarea-wrapper">
+            <textarea id="questionInput"
+              placeholder="Type your research question here..."></textarea>
+          </div>
+
+          <div class="button-row">
+            <button id="clearBtn" class="btn-secondary">Clear</button>
+            <button id="askBtn" class="btn-primary">Ask MicroTraitLLM</button>
+          </div>
+
+          <div id="ragStatus" class="status"></div>
+
+          <div id="answerBox" class="output" style="display:none;"></div>
+        </div>
+
+        <!-- VQA card -->
+        <div class="card vqa-card">
+          <h2>
+            Figure VQA
+            <span class="badge-beta">Beta</span>
+          </h2>
+          <p class="vqa-hint">
+            Upload a figure from a paper and ask a question about it
+            (e.g. “What does panel B show?”).
+          </p>
+
+          <div class="vqa-file-row">
+            <input type="file" id="vqaImage" accept="image/*" />
+          </div>
+
+          <input
+            type="text"
+            id="vqaQuestion"
+            placeholder="Question about this figure..."
+            style="margin-top:4px;"
+          />
+
+          <div class="button-row">
+            <button id="vqaClearBtn" class="btn-secondary">Clear</button>
+            <button id="vqaAskBtn" class="btn-primary">Ask VQA</button>
+          </div>
+
+          <div id="vqaStatus" class="status"></div>
+          <div id="vqaAnswer" class="output" style="display:none;"></div>
+        </div>
+      </section>
+
+      <!-- RIGHT SIDE: Settings -->
+      <aside>
+        <div class="card">
+          <div class="settings-header">
+            <h2>Settings</h2>
+            <span class="pill">
+              <span class="pill-dot"></span>
+              Live synced
+            </span>
+          </div>
+
+          <!-- Model -->
+          <div class="settings-group">
+            <label for="modelSelect">Model</label>
+            <select id="modelSelect">
+              <option value="llama-3.3-70b-versatile">Groq – Llama 3.3 70B</option>
+              <option value="ChatGPT-4o-mini">OpenAI – GPT-4o-mini</option>
+            </select>
+          </div>
+
+          <!-- Number of articles -->
+          <div class="settings-group">
+            <label for="numArticlesRange">Number of articles</label>
+            <div class="slider-row">
+              <input id="numArticlesRange" type="range" min="1" max="20" step="1" />
+              <input id="numArticlesInput" type="number" min="1" max="20" />
+            </div>
+          </div>
+
+          <!-- Temperature -->
+          <div class="settings-group">
+            <label for="tempRange">Temperature</label>
+            <div class="slider-row">
+              <input id="tempRange" type="range" min="0" max="1" step="0.05" />
+              <input id="tempInput" type="number" min="0" max="1" step="0.05" />
+            </div>
+            <small>0 = deterministic; higher = more exploratory.</small>
+          </div>
+
+          <!-- Citation format -->
+          <div class="settings-group">
+            <label for="citationSelect">Citation format</label>
+            <select id="citationSelect">
+              <option value="APA">APA</option>
+              <option value="MLA">MLA</option>
+              <option value="Chicago">Chicago</option>
+            </select>
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <script>
+    // ---------- Helper: sync settings with backend ----------
+
+    async function loadSettings() {
+      try {
+        const res = await fetch("/get_settings");
+        const s = await res.json();
+
+        // Model
+        const modelSelect = document.getElementById("modelSelect");
+        if (s.model_type) {
+          modelSelect.value = s.model_type;
+        }
+
+        // Num articles
+        const numRange = document.getElementById("numArticlesRange");
+        const numInput = document.getElementById("numArticlesInput");
+        const n = s.num_articles ?? s.numArticles ?? 8;
+        numRange.value = n;
+        numInput.value = n;
+
+        // Temperature
+        const tRange = document.getElementById("tempRange");
+        const tInput = document.getElementById("tempInput");
+        const t = s.temperature ?? 0.0;
+        tRange.value = t;
+        tInput.value = t;
+
+        // Citation format
+        const cit = document.getElementById("citationSelect");
+        if (s.citation_format) {
+          cit.value = s.citation_format;
+        }
+      } catch (err) {
+        console.error("Failed to load settings", err);
+      }
+    }
+
+    async function pushSettings() {
+      const payload = {
+        model_type: document.getElementById("modelSelect").value,
+        num_articles: parseInt(document.getElementById("numArticlesRange").value, 10),
+        temperature: parseFloat(document.getElementById("tempRange").value),
+        citation_format: document.getElementById("citationSelect").value,
+      };
+
+      try {
+        await fetch("/update_settings", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+      } catch (err) {
+        console.error("Failed to update settings", err);
+      }
+    }
+
+    // ---------- Main RAG question ----------
+
+    async function askMicroTrait() {
+      const questionEl = document.getElementById("questionInput");
+      const question = questionEl.value.trim();
+      const statusEl = document.getElementById("ragStatus");
+      const answerBox = document.getElementById("answerBox");
+      const btn = document.getElementById("askBtn");
+
+      if (!question) {
+        statusEl.textContent = "Please enter a research question.";
+        statusEl.classList.remove("error");
+        return;
+      }
+
+      statusEl.textContent = "Thinking with MicroTraitLLM...";
+      statusEl.classList.remove("error");
+      btn.disabled = true;
+      btn.textContent = "Working...";
+
+      try {
+        const res = await fetch("/ask", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ question }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok || data.error) {
+          statusEl.textContent = data.error || "Error from server.";
+          statusEl.classList.add("error");
+          return;
+        }
+
+        let out = "";
+        out += "📖 Answer\n\n" + (data.response || "(no answer)");
+        out += "\n\n—\n\n";
+
+        out += "🧬 Taxonomy\n";
+        out += (data.taxonomy || "No taxonomy links identified.") + "\n\n";
+
+        out += "🧪 Protein\n";
+        out += (data.protein || "No protein links identified.") + "\n\n";
+
+        out += "🧬 Gene\n";
+        out += (data.gene || "No gene links identified.");
+
+        answerBox.textContent = out;
+        answerBox.style.display = "block";
+        statusEl.textContent = "";
+      } catch (err) {
+        console.error(err);
+        statusEl.textContent = "Network or server error.";
+        statusEl.classList.add("error");
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Ask MicroTraitLLM";
+      }
+    }
+
+    // ---------- VQA ----------
+
+    async function askVQA() {
+      const fileInput = document.getElementById("vqaImage");
+      const qInput = document.getElementById("vqaQuestion");
+      const statusEl = document.getElementById("vqaStatus");
+      const answerEl = document.getElementById("vqaAnswer");
+      const btn = document.getElementById("vqaAskBtn");
+
+      const file = fileInput.files[0];
+      const question = qInput.value.trim();
+
+      if (!file) {
+        statusEl.textContent = "Please upload an image (figure).";
+        statusEl.classList.add("error");
+        return;
+      }
+      if (!question) {
+        statusEl.textContent = "Please type a question about the figure.";
+        statusEl.classList.add("error");
+        return;
+      }
+
+      statusEl.textContent = "Running VQA on the figure...";
+      statusEl.classList.remove("error");
+      answerEl.style.display = "none";
+      answerEl.textContent = "";
+      btn.disabled = true;
+      btn.textContent = "Working...";
+
+      try {
+        const formData = new FormData();
+        formData.append("image", file);
+        formData.append("question", question);
+
+        const res = await fetch("/vqa", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await res.json();
+
+        if (!res.ok || data.error) {
+          statusEl.textContent = data.error || "VQA server error.";
+          statusEl.classList.add("error");
+          return;
+        }
+
+        answerEl.textContent = data.answer || "(no answer returned)";
+        answerEl.style.display = "block";
+        statusEl.textContent = "";
+      } catch (err) {
+        console.error(err);
+        statusEl.textContent = "Network or server error while calling VQA.";
+        statusEl.classList.add("error");
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Ask VQA";
+      }
+    }
+
+    function clearVQA() {
+      document.getElementById("vqaImage").value = "";
+      document.getElementById("vqaQuestion").value = "";
+      document.getElementById("vqaStatus").textContent = "";
+      document.getElementById("vqaStatus").classList.remove("error");
+      const ans = document.getElementById("vqaAnswer");
+      ans.textContent = "";
+      ans.style.display = "none";
+    }
+
+    // ---------- Wire up events ----------
+
+    document.addEventListener("DOMContentLoaded", () => {
+      loadSettings();
+
+      // Settings events
+      document.getElementById("modelSelect").addEventListener("change", pushSettings);
+
+      const numRange = document.getElementById("numArticlesRange");
+      const numInput = document.getElementById("numArticlesInput");
+      numRange.addEventListener("input", () => {
+        numInput.value = numRange.value;
+      });
+      numRange.addEventListener("change", pushSettings);
+      numInput.addEventListener("change", () => {
+        let v = Math.max(1, Math.min(20, parseInt(numInput.value || "1", 10)));
+        numInput.value = v;
+        numRange.value = v;
+        pushSettings();
+      });
+
+      const tRange = document.getElementById("tempRange");
+      const tInput = document.getElementById("tempInput");
+      tRange.addEventListener("input", () => {
+        tInput.value = tRange.value;
+      });
+      tRange.addEventListener("change", pushSettings);
+      tInput.addEventListener("change", () => {
+        let v = parseFloat(tInput.value || "0");
+        v = Math.max(0, Math.min(1, v));
+        tInput.value = v.toFixed(2);
+        tRange.value = v;
+        pushSettings();
+      });
+
+      document.getElementById("citationSelect").addEventListener("change", pushSettings);
+
+      // Main RAG buttons
+      document.getElementById("askBtn").addEventListener("click", askMicroTrait);
+      document.getElementById("clearBtn").addEventListener("click", () => {
+        document.getElementById("questionInput").value = "";
+        document.getElementById("ragStatus").textContent = "";
+        document.getElementById("ragStatus").classList.remove("error");
+        const ans = document.getElementById("answerBox");
+        ans.textContent = "";
+        ans.style.display = "none";
+      });
+
+      // VQA buttons
+      document.getElementById("vqaAskBtn").addEventListener("click", askVQA);
+      document.getElementById("vqaClearBtn").addEventListener("click", clearVQA);
+    });
+  </script>
+</body>
+</html>
